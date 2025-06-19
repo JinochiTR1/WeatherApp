@@ -2,10 +2,8 @@ import requests
 import tkinter as tk
 from tkinter import messagebox
 
-# Vlož svůj API klíč sem
 API_KEY = "6e8ba65dc98c3d2b7742c46ef361c858"
 
-# Funkce pro získání dat z API
 def get_weather(city):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric&lang=cz"
     try:
@@ -23,14 +21,12 @@ def get_weather(city):
     except requests.exceptions.RequestException as e:
         raise ValueError("Problém se sítí, zkontroluj připojení.") from e
 
-# GUI aplikace
 class WeatherApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Počasí v tvém městě")
         self.root.geometry("350x200")
 
-        # GUI komponenty
         self.label = tk.Label(root, text="Zadej název města:", font=("Arial", 12))
         self.label.pack(pady=10)
 
@@ -60,7 +56,6 @@ class WeatherApp:
             messagebox.showerror("Chyba", str(e))
             self.result_label.config(text="", fg="red")
 
-# Hlavní spuštění
 if __name__ == "__main__":
     root = tk.Tk()
     app = WeatherApp(root)

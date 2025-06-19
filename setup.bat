@@ -1,27 +1,17 @@
 @echo off
-REM kontrola virtuálního prostředí
-IF NOT EXIST venv (
-    echo Vytvarim virtualni prostredi...
+chcp 65001 >nul
+set PYTHONIOENCODING=utf-8
+
+echo Vítej v aplikaci pro Počasí!
+echo Pro pokračování do aplikace bude potřeba vytvořit virtuální prostředí a nainstalovat balíček: requests.
+set /p ANS= Přejete si pokračovat? [A/N]:
+if /I not "%ANS%"=="A" exit /b
+
+if not exist venv (
     python -m venv venv
 )
-
-REM aktivace venv
 call venv\Scripts\activate
 
-REM kontrola a instalace baliku flask
-pip show flask >nul 2>&1
-IF ERRORLEVEL 1 (
-    echo Instalace Flask...
-    pip install flask
-)
+pip install requests
 
-REM kontrola a instalace baliku requests
-pip show requests >nul 2>&1
-IF ERRORLEVEL 1 (
-    echo Instalace Requests...
-    pip install requests
-)
-
-REM spusteni hlavniho skriptu
-echo Spoustim pocasi.py
 python pocasi.py
